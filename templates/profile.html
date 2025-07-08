@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - VoteNow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-2xl bg-white/10 backdrop-blur-lg rounded-3xl p-10 border border-white/20 shadow-xl">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h2 class="text-3xl font-bold text-white mb-1 flex items-center">
+                    <i class="fas fa-user text-green-400 mr-3"></i> My Profile
+                </h2>
+                <p class="text-blue-200">Your voting history</p>
+            </div>
+            <a href="/logout" class="text-red-300 hover:underline font-semibold"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+        <ul class="space-y-4">
+            {% for vote in votes %}
+                {% set poll = poll_map.get(vote.poll_id) %}
+                <li class="bg-white/20 rounded-xl px-5 py-4 border border-white/30">
+                    <div class="text-white font-semibold">{{ poll.question if poll else 'Unknown Poll' }}</div>
+                    <div class="text-blue-200 text-sm mt-1">You voted: <span class="font-bold text-green-300">{{ vote.option }}</span></div>
+                    <div class="text-blue-200 text-xs mt-1">At: {{ vote.timestamp }}</div>
+                </li>
+            {% else %}
+                <li class="text-blue-200">You have not voted in any polls yet.</li>
+            {% endfor %}
+        </ul>
+        <div class="text-center mt-8">
+            <a href="/polls" class="inline-block px-6 py-3 bg-gradient-to-r from-green-400 to-blue-500 text-white font-bold rounded-xl hover:from-green-500 hover:to-blue-600 transition-all duration-300 shadow-lg"><i class="fas fa-arrow-left"></i> Back to Polls</a>
+        </div>
+    </div>
+</body>
+</html> 
